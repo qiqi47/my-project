@@ -16,7 +16,7 @@ export default function Home() {
 
     return (
         <ChatLayout>
-            <div className="flex-1 overflow-auto">
+            <div className="flex-1 overflow-auto p-6">
                 <Card className="rounded-[40px] p-5">
                     <AnswerCard title="A) Books" />
                     <ContentCard content={content} />
