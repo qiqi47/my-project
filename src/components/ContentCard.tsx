@@ -11,7 +11,7 @@ export function ContentCard({ content }: ContentCardProps) {
     const [expanded, setExpanded] = useState(false);
 
     return (
-        <Card className="mb-4 rounded-3xl p-6">
+        <Card className="rounded-3xl p-6">
             <p className="text-gray-800">{content}</p>
             <div className="flex justify-center mt-4">
                 <Button
