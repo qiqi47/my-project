@@ -12,7 +12,7 @@ export function ChatLayout({ children }: ChatLayoutProps) {
             </div>
 
             {/* Right side - chat interface */}
-            <div className="border-[#C0C0C0] border-[0.5px] m-4 rounded-lg  overflow-hidden">
+            <div className="border-[#C0C0C0] border-[0.5px] m-4 rounded-lg overflow-hidden">
                 <div className="col-span-1 bg-[#F6F6F6] flex flex-col h-full overflow-hidden">
                     {children}
                 </div>

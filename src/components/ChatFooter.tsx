@@ -3,18 +3,35 @@ import { Camera, Send, ArrowUp, Settings } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useState } from 'react';
 
-export function ChatFooter() {
+interface ChatFooterProps {
+    onSendMessage?: (message: string) => void;
+}
+
+export function ChatFooter({ onSendMessage }: ChatFooterProps) {
     const [activeTab, setActiveTab] = useState('ask');
     const [isFocused, setIsFocused] = useState(false);
     const [inputValue, setInputValue] = useState('');
 
     const handleFocus = () => {
         setIsFocused(true);
-        setInputValue('book');
     };
 
     const handleBlur = () => {
         setIsFocused(false);
+    };
+
+    const handleSend = () => {
+        if (inputValue.trim() && onSendMessage) {
+            onSendMessage(inputValue.trim());
+            setInputValue('');
+        }
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSend();
+        }
     };
 
     return (
@@ -28,11 +45,13 @@ export function ChatFooter() {
                     onBlur={handleBlur}
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
+                    onKeyDown={handleKeyDown}
                 />
                 <div
                     className={`${
                         isFocused ? 'bg-black' : 'bg-[#7C7C83]'
-                    } rounded-full p-1 transition-colors`}
+                    } rounded-full p-1 transition-colors cursor-pointer`}
+                    onClick={handleSend}
                 >
                     <ArrowUp className={`h-6 w-6 text-white`} />
                 </div>
