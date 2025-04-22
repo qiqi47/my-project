@@ -6,7 +6,7 @@ interface AskAgainButtonProps {
 
 export function AskAgainButton({ onClick }: AskAgainButtonProps) {
     return (
-        <div className="flex justify-center mb-8">
+        <div className="flex justify-center mt-4">
             <Button className="rounded-full bg-gray-900 hover:bg-black" onClick={onClick}>
                 Ask Again
             </Button>
