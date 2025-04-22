@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Camera } from 'lucide-react';
-
+import camera from '../../public/1.svg';
 interface AnswerCardProps {
     title: string;
 }
@@ -25,8 +24,8 @@ export function AnswerCard({ title }: AnswerCardProps) {
                         <span className="text-gray-500 text-sm">Answer</span>
                         <h2 className="text-2xl font-bold mb-2">{title}</h2>
                     </div>
-                    <Button variant="ghost" className="rounded-[50%] w-8 h-8">
-                        <Camera className="h-4 w-4" />
+                    <Button variant="ghost" className="rounded-[50%] w-8 h-8" size="icon">
+                        <img src={camera} alt="camera" className="w-4 h-3" />
                     </Button>
                 </div>
             </div>
