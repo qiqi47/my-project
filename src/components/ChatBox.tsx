@@ -16,6 +16,7 @@ export function ChatBox({ initialMessage }: ChatBoxProps = {}) {
     const [messages, setMessages] = useState<Message[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const initialMessageProcessedRef = useRef(false);
 
     const addMessage = async (content: string, isAI: boolean) => {
         setMessages((prev) => [...prev, { content, isAI }]);
@@ -33,25 +34,35 @@ export function ChatBox({ initialMessage }: ChatBoxProps = {}) {
         }
     };
 
-    // Sample message for the initial UI
+    // Process initial message if provided
     useEffect(() => {
-        addMessage('tell me about books', false);
-        addMessage(
-            'Books are portals to other worlds, offering knowledge, escape, and reflection all in the turn of a page. Whether fiction or fact, they expand our minds and stir our soul!',
-            true,
-        );
-    }, []);
+        if (initialMessage && !initialMessageProcessedRef.current) {
+            initialMessageProcessedRef.current = true;
+            addMessage(initialMessage, false);
+        }
+    }, [initialMessage]);
 
     // Method to expose to parent component
     useEffect(() => {
         // Add to global window object for demo purposes
         const globalWindow = window as any;
-        globalWindow.sendMessage = (message: string) => addMessage(message, false);
+        globalWindow.sendMessage = (message: string) => {
+            // Skip if this is the initial message already processed
+            if (initialMessage === message && initialMessageProcessedRef.current) {
+                return;
+            }
+            addMessage(message, false);
+        };
 
         return () => {
             delete globalWindow.sendMessage;
         };
-    }, []);
+    }, [initialMessage]);
+
+    // Scroll to bottom when messages change
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages]);
 
     return (
         <Card className="rounded-[32px] p-4 flex flex-col h-[300px] overflow-auto mb-4">

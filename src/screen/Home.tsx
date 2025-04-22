@@ -9,15 +9,30 @@ import { Card } from '@/components/ui/card';
 
 export default function Home() {
     const [hasMessageBeenSent, setHasMessageBeenSent] = useState(false);
+    const [firstMessage, setFirstMessage] = useState<string | undefined>(undefined);
 
-    const handleSendMessage = useCallback((message: string) => {
-        // Set that a message has been sent
-        setHasMessageBeenSent(true);
+    const handleSendMessage = useCallback(
+        (message: string) => {
+            if (!hasMessageBeenSent) {
+                // First message - store it and show ChatBox
+                setFirstMessage(message);
+                setHasMessageBeenSent(true);
+            } else {
+                // Subsequent messages - send to ChatBox
+                const globalWindow = window as any;
+                if (typeof globalWindow.sendMessage === 'function') {
+                    globalWindow.sendMessage(message);
+                }
+            }
+        },
+        [hasMessageBeenSent],
+    );
 
-        // Access the sendMessage method exposed by ChatBox
-        const globalWindow = window as any;
-        if (typeof globalWindow.sendMessage === 'function') {
-            globalWindow.sendMessage(message);
+    const handleAskAgain = useCallback(() => {
+        // Focus on the input field
+        const inputEl = document.querySelector('input[type="text"]') as HTMLInputElement | null;
+        if (inputEl) {
+            inputEl.focus();
         }
     }, []);
 
@@ -29,10 +44,13 @@ export default function Home() {
             <div className="flex-1 max-h-screen p-6 overflow-y-auto">
                 <Card className="rounded-[40px] p-5 flex flex-col gap-1 mb-4">
                     <AnswerCard title="A) Books" />
-                    <ContentCard content={content} hasMessageBeenSent={hasMessageBeenSent} />
+                    <ContentCard content={content} hasMessageBeenSent={false} />
                 </Card>
-                {hasMessageBeenSent && <ChatBox />}
-                {!hasMessageBeenSent && <AskAgainButton />}
+                {hasMessageBeenSent ? (
+                    <ChatBox initialMessage={firstMessage} />
+                ) : (
+                    <AskAgainButton onClick={handleAskAgain} />
+                )}
             </div>
             <ChatFooter onSendMessage={handleSendMessage} />
         </ChatLayout>

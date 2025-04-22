@@ -5,7 +5,7 @@ interface ChatLayoutProps {
 
 export function ChatLayout({ children }: ChatLayoutProps) {
     return (
-        <div className="min-h-screen bg-white grid grid-cols-3">
+        <div className="min-h-screen bg-white grid grid-cols-3 w-full">
             {/* Left side - empty area */}
             <div className="col-span-2 p-4">
                 <div className="flex-1 bg-[#F6F6F6] h-full rounded-xl"></div>
