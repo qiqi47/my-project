@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowUp } from 'lucide-react';
+import { ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
@@ -11,8 +11,13 @@ export function ContentCard({ content }: ContentCardProps) {
     const [expanded, setExpanded] = useState(false);
 
     return (
-        <Card className="rounded-3xl p-6">
-            <p className="text-gray-800">{content}</p>
+        <Card className="rounded-3xl p-6 border-1 gap-0 relative">
+            <div className={expanded ? '' : 'relative'}>
+                <p className={`text-gray-800 ${!expanded ? 'line-clamp-2' : ''}`}>{content}</p>
+            </div>
+            {!expanded && (
+                <div className="absolute bottom-[60px] left-0 right-0 h-[40px] bg-gradient-to-t from-white to-transparent"></div>
+            )}
             <div className="flex justify-center mt-4">
                 <Button
                     variant="secondary"
@@ -20,10 +25,10 @@ export function ContentCard({ content }: ContentCardProps) {
                     className="rounded-full text-gray-500"
                     onClick={() => setExpanded(!expanded)}
                 >
-                    See More{' '}
-                    <ArrowUp
+                    {expanded ? 'See Less' : 'See More'}{' '}
+                    <ChevronUp
                         className={`ml-1 h-4 w-4 transition-transform ${
-                            expanded ? 'rotate-180' : ''
+                            expanded ? '' : 'rotate-180'
                         }`}
                     />
                 </Button>
