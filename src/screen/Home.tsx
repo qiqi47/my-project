@@ -3,6 +3,7 @@ import { AnswerCard } from '@/components/AnswerCard';
 import { ContentCard } from '@/components/ContentCard';
 import { AskAgainButton } from '@/components/AskAgainButton';
 import { ChatFooter } from '@/components/ChatFooter';
+import { Card } from '@/components/ui/card';
 
 export default function Home() {
     const handleAskAgain = () => {
@@ -16,8 +17,10 @@ export default function Home() {
     return (
         <ChatLayout>
             <div className="flex-1 overflow-auto">
-                <AnswerCard title="A) Books" />
-                <ContentCard content={content} />
+                <Card className="rounded-[40px] p-5">
+                    <AnswerCard title="A) Books" />
+                    <ContentCard content={content} />
+                </Card>
                 <AskAgainButton onClick={handleAskAgain} />
             </div>
             <ChatFooter />

@@ -19,9 +19,12 @@ export function AnswerCard({ title }: AnswerCardProps) {
                 backgroundClip: 'padding-box, border-box',
             }}
         >
-            <div className="p-6 relative">
-                <div className="flex justify-between items-center mb-2">
-                    <span className="text-gray-500 text-sm">Answer</span>
+            <div className="px-6 relative">
+                <div className="flex justify-between items-center ">
+                    <div className="flex flex-col">
+                        <span className="text-gray-500 text-sm">Answer</span>
+                        <h2 className="text-2xl font-bold mb-2">{title}</h2>
+                    </div>
                     <Button
                         variant="ghost"
                         size="icon"
@@ -30,7 +33,6 @@ export function AnswerCard({ title }: AnswerCardProps) {
                         <Camera className="h-4 w-4" />
                     </Button>
                 </div>
-                <h2 className="text-2xl font-bold mb-2">{title}</h2>
             </div>
         </Card>
     );
