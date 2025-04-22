@@ -5,12 +5,36 @@ import { useState } from 'react';
 
 export function ChatFooter() {
     const [activeTab, setActiveTab] = useState('ask');
+    const [isFocused, setIsFocused] = useState(false);
+    const [inputValue, setInputValue] = useState('');
+
+    const handleFocus = () => {
+        setIsFocused(true);
+        setInputValue('book');
+    };
+
+    const handleBlur = () => {
+        setIsFocused(false);
+    };
+
     return (
         <div className="mt-auto bg-white rounded-t-3xl p-4 max-h-36 gap-4 flex flex-col">
             <div className="flex items-center bg-[#F1F1F1] rounded-full p-1.5 mb-2 h-14">
-                <span className="ml-2 text-gray-600 text-sm">Chat with us</span>
-                <div className="ml-auto bg-gray-200 rounded-full p-1">
-                    <ArrowUp className="h-6 w-6 text-gray-500" />
+                <input
+                    type="text"
+                    placeholder="Chat with us"
+                    className="ml-2 text-gray-600 text-sm bg-transparent border-none outline-none flex-1"
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                />
+                <div
+                    className={`${
+                        isFocused ? 'bg-black' : 'bg-[#7C7C83]'
+                    } rounded-full p-1 transition-colors`}
+                >
+                    <ArrowUp className={`h-6 w-6 text-white`} />
                 </div>
             </div>
 
