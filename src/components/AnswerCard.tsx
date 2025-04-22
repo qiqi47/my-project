@@ -24,8 +24,15 @@ export function AnswerCard({ title }: AnswerCardProps) {
                         <span className="text-gray-500 text-sm">Answer</span>
                         <h2 className="text-2xl font-bold mb-2">{title}</h2>
                     </div>
-                    <Button variant="ghost" className="rounded-[50%] w-8 h-8" size="icon">
+                    <Button
+                        variant="ghost"
+                        className="rounded-[50%] w-8 h-8 transition-all duration-300 hover:w-24 hover:rounded-full flex items-center justify-center gap-2 group"
+                        size="icon"
+                    >
                         <img src={camera} alt="camera" className="w-4 h-3" />
+                        <span className="hidden group-hover:inline whitespace-nowrap text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 delay-100 bg-gradient-to-r from-[#C330FD] to-[#FF6C2D] text-transparent bg-clip-text">
+                            pop out
+                        </span>
                     </Button>
                 </div>
             </div>
