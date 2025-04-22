@@ -8,17 +8,18 @@ interface AnswerCardProps {
 
 export function AnswerCard({ title }: AnswerCardProps) {
     return (
-        <Card className="mb-4 rounded-3xl overflow-hidden border-0 shadow-sm relative">
-            <div
-                className="absolute inset-0 rounded-3xl"
-                style={{
-                    background: 'linear-gradient(to right, #ff7e5f, #feb47b)',
-                    padding: '1px',
-                    mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                    maskComposite: 'exclude',
-                }}
-            ></div>
-            <div className="p-6 bg-white rounded-3xl relative">
+        <Card
+            className="mb-4 rounded-3xl overflow-hidden relative"
+            style={{
+                boxShadow: '0px 4px 16px 0px rgba(0, 0, 0, 0.1)',
+                border: '1px solid transparent',
+                backgroundImage:
+                    'linear-gradient(white, white), linear-gradient(0deg, #E46B00 0%, #B300C7 100%)',
+                backgroundOrigin: 'border-box',
+                backgroundClip: 'padding-box, border-box',
+            }}
+        >
+            <div className="p-6 relative">
                 <div className="flex justify-between items-center mb-2">
                     <span className="text-gray-500 text-sm">Answer</span>
                     <Button
