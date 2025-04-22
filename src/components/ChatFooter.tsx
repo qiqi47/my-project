@@ -23,7 +23,7 @@ export function ChatFooter() {
                         value={activeTab}
                         onValueChange={setActiveTab}
                     >
-                        <TabsList className="grid w-[180px] grid-cols-2 rounded-xl h-10 p-1 gap-1">
+                        <TabsList className="grid w-[180px] grid-cols-2 rounded-xl h-12 p-1 gap-1">
                             <TabsTrigger
                                 value="ask"
                                 className={`${
