@@ -25,11 +25,7 @@ export function AnswerCard({ title }: AnswerCardProps) {
                         <span className="text-gray-500 text-sm">Answer</span>
                         <h2 className="text-2xl font-bold mb-2">{title}</h2>
                     </div>
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8 rounded-full bg-pink-50 text-pink-500"
-                    >
+                    <Button variant="ghost" className="rounded-[50%] w-8 h-8">
                         <Camera className="h-4 w-4" />
                     </Button>
                 </div>
