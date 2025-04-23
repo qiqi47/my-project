@@ -1,8 +1,12 @@
 import { Button } from '@/components/ui/button';
-import { Camera, Send, ArrowUp, Settings } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useState } from 'react';
-
+import settings from '../../public/setting.svg';
+import camera from '../../public/camera.svg';
+import chat from '../../public/chat.svg';
+import chatWT from '../../public/chatWt.svg';
+import cameraBK from '../../public/cameraBk.svg';
 interface ChatFooterProps {
     onSendMessage?: (message: string) => void;
 }
@@ -73,7 +77,12 @@ export function ChatFooter({ onSendMessage }: ChatFooterProps) {
                                     activeTab === 'ask' ? '!bg-black text-white' : ''
                                 } flex items-center justify-center rounded-2xl text-sm`}
                             >
-                                <Camera className="mr-1 h-3 w-3" /> Ask
+                                {activeTab === 'ask' ? (
+                                    <img src={camera} alt="camera" className="mr-1 h-4 w-4" />
+                                ) : (
+                                    <img src={cameraBK} alt="camera" className="mr-1 h-4 w-4" />
+                                )}
+                                Ask
                             </TabsTrigger>
                             <TabsTrigger
                                 value="chats"
@@ -81,7 +90,12 @@ export function ChatFooter({ onSendMessage }: ChatFooterProps) {
                                     activeTab === 'chats' ? '!bg-black text-white' : ''
                                 } flex items-center justify-center rounded-2xl text-sm`}
                             >
-                                <Send className="mr-1 h-3 w-3" /> Chats
+                                {activeTab === 'ask' ? (
+                                    <img src={chat} alt="chat" className=" h-4 w-4" />
+                                ) : (
+                                    <img src={chatWT} alt="chat" className=" h-4 w-4" />
+                                )}{' '}
+                                Chats
                             </TabsTrigger>
                         </TabsList>
                     </Tabs>
@@ -91,7 +105,7 @@ export function ChatFooter({ onSendMessage }: ChatFooterProps) {
                     className="rounded-[50%] w-10 h-10 flex items-center justify-center"
                     size="icon"
                 >
-                    <Settings className="h-4 w-4" />
+                    <img src={settings} alt="settings" className="h-8 w-8" />
                 </Button>
             </div>
         </div>
