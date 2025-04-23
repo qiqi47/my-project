@@ -8,7 +8,7 @@ import chat from '../../public/chat.svg';
 import chatWT from '../../public/chatWt.svg';
 import cameraBK from '../../public/cameraBk.svg';
 interface ChatFooterProps {
-    onSendMessage?: (message: string) => void;
+    onSendMessage?: (message: string, isAI: boolean) => void;
 }
 
 export function ChatFooter({ onSendMessage }: ChatFooterProps) {
@@ -26,7 +26,7 @@ export function ChatFooter({ onSendMessage }: ChatFooterProps) {
 
     const handleSend = () => {
         if (inputValue.trim() && onSendMessage) {
-            onSendMessage(inputValue.trim());
+            onSendMessage(inputValue.trim(), false);
             setInputValue('');
         }
     };

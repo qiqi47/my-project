@@ -7,23 +7,36 @@ import { ChatFooter } from '@/components/ChatFooter';
 import { ChatBox } from '@/components/ChatBox';
 import { Card } from '@/components/ui/card';
 import PopoutCard from '@/components/PopoutCard';
-
+import { sendChatMessage } from '@/api/api';
+interface Message {
+    content: string;
+    isAI: boolean;
+}
 export default function Home() {
     const [hasMessageBeenSent, setHasMessageBeenSent] = useState(false);
     const [firstMessage, setFirstMessage] = useState<string | undefined>(undefined);
     const [isPoppedOut, setIsPoppedOut] = useState(true);
+    const [messages, setMessages] = useState<Message[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSendMessage = useCallback(
-        (message: string) => {
+        async (message: string, isAI: boolean) => {
             if (!hasMessageBeenSent) {
                 // First message - store it and show ChatBox
                 setFirstMessage(message);
                 setHasMessageBeenSent(true);
             } else {
-                // Subsequent messages - send to ChatBox
-                const globalWindow = window as any;
-                if (typeof globalWindow.sendMessage === 'function') {
-                    globalWindow.sendMessage(message);
+                setMessages((prev) => [...prev, { content: message, isAI }]);
+                if (!isAI) {
+                    setIsLoading(true);
+                    try {
+                        const response = await sendChatMessage(message);
+                        setMessages((prev) => [...prev, { content: response, isAI: true }]);
+                    } catch (error) {
+                        console.error('Error sending message:', error);
+                    } finally {
+                        setIsLoading(false);
+                    }
                 }
             }
         },
@@ -58,7 +71,12 @@ export default function Home() {
                             />
                         </Card>
                         {hasMessageBeenSent ? (
-                            <ChatBox initialMessage={firstMessage} />
+                            <ChatBox
+                                initialMessage={firstMessage}
+                                messages={messages}
+                                isLoading={isLoading}
+                                onSendMessage={handleSendMessage}
+                            />
                         ) : (
                             <AskAgainButton onClick={handleAskAgain} />
                         )}

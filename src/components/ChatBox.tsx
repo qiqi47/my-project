@@ -1,5 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
-import { sendChatMessage } from '@/api/api';
+import { useRef, useEffect } from 'react';
 import { ChatMessage } from '@/components/ChatMessage';
 import { Card } from '@/components/ui/card';
 
@@ -10,53 +9,21 @@ interface Message {
 
 interface ChatBoxProps {
     initialMessage?: string;
+    messages: Message[];
+    isLoading: boolean;
+    onSendMessage: (message: string, isAI: boolean) => void;
 }
 
-export function ChatBox({ initialMessage }: ChatBoxProps = {}) {
-    const [messages, setMessages] = useState<Message[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
+export function ChatBox({ initialMessage, messages, isLoading, onSendMessage }: ChatBoxProps) {
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const initialMessageProcessedRef = useRef(false);
-
-    const addMessage = async (content: string, isAI: boolean) => {
-        setMessages((prev) => [...prev, { content, isAI }]);
-
-        if (!isAI) {
-            setIsLoading(true);
-            try {
-                const response = await sendChatMessage(content);
-                setMessages((prev) => [...prev, { content: response, isAI: true }]);
-            } catch (error) {
-                console.error('Error sending message:', error);
-            } finally {
-                setIsLoading(false);
-            }
-        }
-    };
 
     // Process initial message if provided
     useEffect(() => {
         if (initialMessage && !initialMessageProcessedRef.current) {
             initialMessageProcessedRef.current = true;
-            addMessage(initialMessage, false);
+            onSendMessage(initialMessage, false);
         }
-    }, [initialMessage]);
-
-    // Method to expose to parent component
-    useEffect(() => {
-        // Add to global window object for demo purposes
-        const globalWindow = window as any;
-        globalWindow.sendMessage = (message: string) => {
-            // Skip if this is the initial message already processed
-            if (initialMessage === message && initialMessageProcessedRef.current) {
-                return;
-            }
-            addMessage(message, false);
-        };
-
-        return () => {
-            delete globalWindow.sendMessage;
-        };
     }, [initialMessage]);
 
     // Scroll to bottom when messages change
