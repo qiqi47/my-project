@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import camera from '../../public/1.svg';
-
+import mask2 from '../../public/mask2.png';
 interface AnswerCardProps {
     title: string;
     setIsPoppedOut: (isPoppedOut: boolean) => void;
@@ -30,6 +30,11 @@ export function AnswerCard({ title, setIsPoppedOut }: AnswerCardProps) {
                         <span className="text-gray-500 text-sm">Solution</span>
                         <h2 className="text-2xl font-bold mb-2">{title}</h2>
                     </div>
+                    <img
+                        src={mask2}
+                        alt="mask2"
+                        className="w-[400px] h-[60px] absolute top-10 bg-fi"
+                    />
                     <Button
                         variant="ghost"
                         className="rounded-[50%] w-8 h-8 transition-all duration-300 hover:w-24 hover:rounded-full flex items-center justify-center gap-2 group"

@@ -4,18 +4,19 @@ import xiao from '../../public/xiao.svg';
 import rotate from '../../public/rotate.svg';
 import camera from '../../public/camera.svg';
 import { Button } from './ui/button';
+import mask1 from '../../public/mask1.png';
 
 export default function PopoutCard({ handlePopIn }: { handlePopIn: () => void }) {
     return (
         <div className={`flex items-center justify-end min-h-screen bg-[#F8F8F8] pr-20`}>
-            <div className="w-[457px] h-[418px] max-w-md p-6 bg-white rounded-[32px] shadow-lg relative overflow-hidden flex flex-col justify-between bg-[url('/mask1.png')] bg-cover">
+            <div className="w-[457px] h-[418px] max-w-md p-6 bg-white rounded-[32px] shadow-lg relative overflow-hidden flex flex-col justify-between">
                 {/* Gradient background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-pink-100/70 -z-10"></div>
 
                 {/* Header */}
-                <div className="flex justify-between items-center mb-6 ml-10">
+                <div className="flex justify-between items-center mb-6">
                     <div className="font-bold text-xl">
-                        Answers<span className="text-[#5256FF]">Ai</span>
+                        Answers<span className="text-blue-500">Ai</span>
                     </div>
                     <button className="p-1" onClick={() => handlePopIn()}>
                         <img src={xiao} alt="xiao" className="h-4 w-4" />
