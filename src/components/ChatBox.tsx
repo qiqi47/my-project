@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { sendChatMessage } from '@/lib/api';
+import { sendChatMessage } from '@/api/api';
 import { ChatMessage } from '@/components/ChatMessage';
 import { Card } from '@/components/ui/card';
 
