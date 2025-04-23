@@ -1,9 +1,12 @@
+const VITE_API_URL = 'https://flask-ai-chat.replit.app/api/chat';
+const VITE_API_KEY = '*018n(~gPC6x$c4';
+
 export async function sendChatMessage(message: string): Promise<string> {
     try {
-        const response = await fetch(import.meta.env.API_URL, {
+        const response = await fetch(VITE_API_URL, {
             method: 'POST',
             headers: {
-                'X-Api-Key': import.meta.env.API_KEY,
+                'X-Api-Key': VITE_API_KEY,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ message }),
