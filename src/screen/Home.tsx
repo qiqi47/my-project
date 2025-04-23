@@ -49,10 +49,13 @@ export default function Home() {
         <>
             {isPoppedOut ? (
                 <ChatLayout>
-                    <div className="flex-1 max-h-screen p-6 overflow-y-auto">
-                        <Card className="rounded-[40px] p-5 flex flex-col gap-1 mb-4">
+                    <div className="flex-1 max-h-screen p-6 overflow-y-auto w-full">
+                        <Card className="rounded-[40px] p-5 flex flex-col gap-1 mb-4 w-full">
                             <AnswerCard title="A) Books" setIsPoppedOut={setIsPoppedOut} />
-                            <ContentCard content={content} hasMessageBeenSent={false} />
+                            <ContentCard
+                                content={content}
+                                hasMessageBeenSent={hasMessageBeenSent}
+                            />
                         </Card>
                         {hasMessageBeenSent ? (
                             <ChatBox initialMessage={firstMessage} />
